@@ -1,0 +1,49 @@
+# Java
+*.class
+.classpath
+.project
+
+.idea
+.metadata
+.settings
+.factorypath
+
+
+target
+**/build/classes
+**/WEB-INF/lib
+
+
+# Python
+__pycache__
+
+
+
+# C and C++
+*.o
+*.a
+*.so
+*.bin
+
+
+
+# Visula Studio
+*.filters
+*.user
+*.suo
+*.sdf
+
+.vscode
+Debug
+Release
+
+
+
+# Test
+*.log
+*.me.bat
+*.me.sh
+ZZZTempZZZ
+
+
+
