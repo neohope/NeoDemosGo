@@ -7,7 +7,8 @@ import (
 )
 
 // 泛型支持
-func Map(data interface{}, fn interface{}) []interface{} {
+// 目前的 Go 语言的泛型只能用 interface{} + reflect来完成
+func MapGeneric(data interface{}, fn interface{}) []interface{} {
 	vfn := reflect.ValueOf(fn)
 	vdata := reflect.ValueOf(data)
 	result := make([]interface{}, vdata.Len())
@@ -23,9 +24,8 @@ func main(){
 		return x * x
 	}
 	nums := []int{1, 2, 3, 4}
-
-	squared_arr := Map(nums,square)
-	fmt.Println(squared_arr)
+	squaredNums:= MapGeneric(nums,square)
+	fmt.Println(squaredNums)
 	//[1 4 9 16]
 
 	
@@ -33,11 +33,12 @@ func main(){
 		return strings.ToUpper(s)
 	}
 	strs := []string{"Hao", "Chen", "MegaEase"}
-	upstrs := Map(strs, upcase);
-	fmt.Println(upstrs)
+	upStrs := MapGeneric(strs, upcase);
+	fmt.Println(upStrs)
 	//[HAO CHEN MEGAEASE]
 
-
-	x := Map(5, 5)
+	// 这里会引起panic
+	// 因为5没有Len()方法
+	x := MapGeneric(5, 5)
 	fmt.Println(x)
 }
