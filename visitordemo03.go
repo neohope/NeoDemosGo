@@ -48,40 +48,20 @@ func (v DecoratedVisitor) Visit(fn VisitorFunc03) error {
 	})
 }
 
-type NameVisitor03 struct {
-	visitor Visitor03
-}
-
-func (v NameVisitor03) DoIt(info *Info03, err error) error {
-	fmt.Println("NameVisitor() before call function")
-	err = fn(info, err)
-	if err == nil {
-		fmt.Printf("==> Name=%s, NameSpace=%s\n", info.Name, info.Namespace)
-	}
-	fmt.Println("NameVisitor() after call function")
+func NameVisitorFun(info *Info03, err error) error {
+	fmt.Printf("==> Name=%s, NameSpace=%s\n", info.Name, info.Namespace)
 	return err
 }
 
-type OtherThingsVisitor03 struct {
-	visitor Visitor03
-}
-
-func (v OtherThingsVisitor03) Visit(fn VisitorFunc03) error {
-	return v.visitor.Visit(func(info *Info03, err error) error {
-		fmt.Println("OtherThingsVisitor() before call function")
-		err = fn(info, err)
-		if err == nil {
-			fmt.Printf("==> OtherThings=%s\n", info.OtherThings)
-		}
-		fmt.Println("OtherThingsVisitor() after call function")
-		return err
-	})
+func OtherThingsVisitorFun(info *Info03, err error) error {
+	fmt.Printf("==> OtherThings=%s\n", info.OtherThings)
+	return err
 }
 
 func main(){
 	info := Info03{}
 	var v Visitor03 = &info
-	v = NewDecoratedVisitor(v, NameVisitor03, OtherThingsVisitor03)
+	v = NewDecoratedVisitor(v, NameVisitorFun, OtherThingsVisitorFun)
 
 	loadFile := func(info *Info03, err error) error {
 		info.Name = "Hao Chen"
