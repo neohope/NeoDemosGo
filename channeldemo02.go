@@ -110,9 +110,11 @@ func main() {
 		chans[i] = sum02(prime(in))
 	}
 
-	var c int;
-	fmt.Scan(&c)
+	//也可以这样等待任务完成
+	//var c int;
+	//fmt.Scan(&c)
 
+	// 等待计算任务完成
 	m := merge(chans[:])
 
 	for n := range sum02(m) {
